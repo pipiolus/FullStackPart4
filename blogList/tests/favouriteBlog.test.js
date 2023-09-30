@@ -3,7 +3,7 @@ const listHelper = require("../utils/list_helper");
 describe("most liked", () => {
   test("of empty list equals empty blog", () => {
     const emptyBlogs = [];
-    const result = listHelper.mostLiked(emptyBlogs);
+    const result = listHelper.favouriteBlog(emptyBlogs);
 
     expect(result).toEqual({});
   });
@@ -19,7 +19,7 @@ describe("most liked", () => {
         __v: 0,
       },
     ];
-    const result = listHelper.mostLiked(listWithOneBlog);
+    const result = listHelper.favouriteBlog(listWithOneBlog);
 
     expect(result).toEqual(listWithOneBlog[0]);
   });
@@ -75,7 +75,8 @@ describe("most liked", () => {
         __v: 0,
       },
     ];
-    const result = listHelper.mostLiked(blogs);
+    const result = listHelper.favouriteBlog(blogs);
+    console.log(result);
     expect(result).toEqual(blogs[3]);
   });
 });
