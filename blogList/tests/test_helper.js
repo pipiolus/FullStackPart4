@@ -1,6 +1,5 @@
 const initialBlogs = [
   {
-    /* id: "65205cad3761e16cef6c7200", */
     title: "React patterns",
     author: "Michael Chan",
     url: "https://reactpatterns.com/",
@@ -13,4 +12,5 @@ const initialBlogs = [
     likes: 5,
   },
 ];
+
 module.exports = { initialBlogs };
