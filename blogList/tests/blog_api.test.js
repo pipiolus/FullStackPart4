@@ -21,8 +21,10 @@ test("blogs are returned as JSON", async () => {
     .expect("Content-Type", /application\/json/);
 }, 100000);
 
-test.skip("unique identifier property is named 'id'", async () => {
-  const blogToView = helper.initialBlogs[0];
+test("unique identifier property is named 'id'", async () => {
+  const request = await api.get("/api/blogs");
+  const blogsInDB = request.body.map((blog) => blog);
+  const blogToView = blogsInDB[0];
 
   const resultBlog = await api
     .get(`/api/blogs/${blogToView.id}`)
@@ -30,6 +32,7 @@ test.skip("unique identifier property is named 'id'", async () => {
     .expect("Content-Type", /application\/json/);
 
   expect(resultBlog.body.id).toBeDefined();
+  expect(resultBlog.body).toEqual(blogToView);
 }, 100000);
 
 test("making a post request succesfully creates a new blog", async () => {
