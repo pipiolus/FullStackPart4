@@ -7,19 +7,17 @@ const noteRouter = require("./controllers/blogs");
 const middleware = require("./utils/middleware");
 const logger = require("./utils/logger");
 
-mongoose
-  .connect(config.mongoUrl)
-  .then(() => {
-    logger.info("Connected to Database");
-  })
-  .catch((error) => {
-    logger.error("Problems connecting to MongoDB:", error.message);
-  });
+const connectToDatabase = async () => {
+  logger.info("Connecting to", config.MONGO_URI);
+  await mongoose.connect(config.MONGO_URI);
+  logger.info("Connected to Database");
+};
+connectToDatabase();
 
 app.use(cors());
 app.use(express.json());
 
-app.use("api/blogs", noteRouter);
+app.use("/api/blogs", noteRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
