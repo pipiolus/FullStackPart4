@@ -3,7 +3,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
-const noteRouter = require("./controllers/blogs");
+const blogRouter = require("./controllers/blogs");
+const usersRouter = require("./controllers/users");
 const middleware = require("./utils/middleware");
 const logger = require("./utils/logger");
 
@@ -17,7 +18,8 @@ connectToDatabase();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/blogs", noteRouter);
+app.use("/api/blogs", blogRouter);
+app.use("/api/users", usersRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);

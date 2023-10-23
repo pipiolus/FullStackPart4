@@ -13,4 +13,17 @@ const initialBlogs = [
   },
 ];
 
-module.exports = { initialBlogs };
+const initialUsers = [
+  {
+    username: "Pipiolus",
+    name: "Giova",
+    passwordHash: "admin123",
+  },
+  {
+    username: "Pendragon",
+    name: "Arthur",
+    passwordHash: "peperoni",
+  },
+];
+
+module.exports = { initialBlogs, initialUsers };
