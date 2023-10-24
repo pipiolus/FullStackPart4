@@ -1,4 +1,5 @@
 const logger = require("./logger");
+const jwt = require("jsonwebtoken");
 
 const unknownEndpoint = (req, res) => {
   res.status(404).send({ error: "Unknown Endpoint" });
@@ -11,9 +12,37 @@ const errorHandler = (error, request, response, next) => {
     return response.status(400).json({ error: error.message });
   } else if (error.name === "JsonWebTokenError") {
     return response.status(401).json({ error: error.message });
+  } else if (error.name === "TokenExpiredError") {
+    return response.status(401).json({
+      error: "token expired",
+    });
   }
 
   next(error);
 };
 
-module.exports = { unknownEndpoint, errorHandler };
+const tokenExtractor = (request, response, next) => {
+  const authorization = request.get("authorization");
+
+  if (authorization && authorization.startsWith("Bearer ")) {
+    const token = authorization.replace("Bearer ", "");
+    request.token = token;
+  }
+  next();
+};
+
+const userExtractor = (request, response, next) => {
+  const decodedToken = jwt.verify(request.token, process.env.SECRET);
+
+  if (decodedToken) {
+    request.user = decodedToken;
+  }
+  next();
+};
+
+module.exports = {
+  unknownEndpoint,
+  errorHandler,
+  tokenExtractor,
+  userExtractor,
+};

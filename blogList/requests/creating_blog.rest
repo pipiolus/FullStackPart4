@@ -1,9 +1,9 @@
 POST http://localhost:3003/api/blogs HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdPQVQiLCJpZCI6IjY1MzgwMGU1ZTJhN2I1ZmIwYjRkYmM4NCIsImlhdCI6MTY5ODE2OTA4M30.v1eTj_gBXtKiV6Z8DvhLmcbVMVmMxhUt7LmkAvue9BM
+Authorization: Bearer 
 
 {
-    "title": "Regular Expressions Clearly Explained with Examples",
-    "author": "Jason Chong",
-    "url": "https://towardsdatascience.com/regular-expressions-clearly-explained-with-examples-822d76b037b4?gi=4d5a49d053ed"
+    "title": "Clean Frontend Architecture",
+    "author": "Robert Maier-Silldorff",
+    "url": "https://medium.com/bitsrc/clean-frontend-architecture-2995c68702fb"
 }
