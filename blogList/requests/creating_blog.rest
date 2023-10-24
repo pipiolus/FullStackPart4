@@ -1,9 +1,9 @@
 POST http://localhost:3003/api/blogs HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdPQVQiLCJpZCI6IjY1MzgwMGU1ZTJhN2I1ZmIwYjRkYmM4NCIsImlhdCI6MTY5ODE2OTA4M30.v1eTj_gBXtKiV6Z8DvhLmcbVMVmMxhUt7LmkAvue9BM
 
 {
-    "title": "¿Cómo empezar un blog desde cero? Pasos a seguir y errores a evitar",
-    "author": "Mercedes Villar Gil",
-    "url": "https://es.semrush.com/blog/como-empezar-un-blog-desde-cero/?kw=&cmp=LM_SRCH_DSA_Blog_ES&label=dsa_pagefeed&Network=g&Device=c&utm_content=641222121739&kwid=dsa-1928812724133&cmpid=19249322807&agpid=145221542100&BU=Core&extid=64565394364&adpos=&gclid=CjwKCAjw1t2pBhAFEiwA_-A-NBoNg3eN0D6ejoLyaK1TTLXl-Du2x9yGzgEEkvKhQcniIH_9_GZxEhoC2f8QAvD_BwE",
-    "userId": "6536f40f12df0ca39c76dc8f"
+    "title": "Regular Expressions Clearly Explained with Examples",
+    "author": "Jason Chong",
+    "url": "https://towardsdatascience.com/regular-expressions-clearly-explained-with-examples-822d76b037b4?gi=4d5a49d053ed"
 }
