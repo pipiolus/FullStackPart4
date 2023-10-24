@@ -14,7 +14,15 @@ const favouriteBlog = (blogList) => {
   const biggestLikesNumber = Math.max(
     ...blogList.map((blog) => blog.likes)
   );
-  return blogList.find((blog) => blog.likes === biggestLikesNumber);
+  let resultBlog = blogList.find(
+    (blog) => blog.likes === biggestLikesNumber
+  );
+  resultBlog = {
+    title: resultBlog.title,
+    author: resultBlog.author,
+    likes: resultBlog.likes,
+  };
+  return resultBlog;
 };
 
 module.exports = {

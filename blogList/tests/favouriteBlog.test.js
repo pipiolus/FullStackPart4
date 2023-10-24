@@ -21,7 +21,7 @@ describe("most liked", () => {
     ];
     const result = listHelper.favouriteBlog(listWithOneBlog);
 
-    expect(result).toEqual(listWithOneBlog[0]);
+    expect(result.likes).toBe(listWithOneBlog[0].likes);
   });
 
   test("of many blogs equals the blog with most likes", () => {
@@ -76,7 +76,7 @@ describe("most liked", () => {
       },
     ];
     const result = listHelper.favouriteBlog(blogs);
-    console.log(result);
-    expect(result).toEqual(blogs[3]);
+    console.log("Result of list with many blogs: ", result);
+    expect(result.likes).toBe(blogs[3].likes);
   });
 });

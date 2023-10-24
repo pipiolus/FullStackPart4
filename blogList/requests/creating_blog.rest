@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "¿Cómo empezar un blog desde cero? Pasos a seguir y errores a evitar",
+    "author": "Mercedes Villar Gil",
+    "url": "https://es.semrush.com/blog/como-empezar-un-blog-desde-cero/?kw=&cmp=LM_SRCH_DSA_Blog_ES&label=dsa_pagefeed&Network=g&Device=c&utm_content=641222121739&kwid=dsa-1928812724133&cmpid=19249322807&agpid=145221542100&BU=Core&extid=64565394364&adpos=&gclid=CjwKCAjw1t2pBhAFEiwA_-A-NBoNg3eN0D6ejoLyaK1TTLXl-Du2x9yGzgEEkvKhQcniIH_9_GZxEhoC2f8QAvD_BwE",
+    "userId": "6536f40f12df0ca39c76dc8f"
+}
