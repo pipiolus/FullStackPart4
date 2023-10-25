@@ -35,8 +35,8 @@ describe("When making GET requests to endpoint", () => {
 });
 
 describe("When making POST requests to endpoint", () => {
-  test.only("if no token is provided will result in 'status 401 Unauthorized'", async () => {
-    const blogsAtStart = await api.get("/api/blogs");
+  test("if no token is provided will result in 'status 401 Unauthorized'", async () => {
+    const blogsAtStart = await helper.blogsInDb();
 
     const newBlog = {
       title: "Understanding the npm dependency model",
@@ -49,10 +49,11 @@ describe("When making POST requests to endpoint", () => {
       .send(newBlog)
       .expect(401);
 
-    expect(response.body).toContain("Unauthorized");
+    expect(response.body).toEqual({
+      error: "jwt must be provided",
+    });
 
-    const blogsAtEnd = await api.get("/api/blogs");
-
+    const blogsAtEnd = await helper.blogsInDb();
     expect(blogsAtEnd).toEqual(blogsAtStart);
   }, 100000);
 
@@ -81,14 +82,16 @@ describe("When making POST requests to endpoint", () => {
       .expect(201)
       .expect("Content-type", /application\/json/);
 
-    const blogsAtEnd = await api.get("/api/blogs");
-    const addedBlog = blogsAtEnd.body.find(
+    const blogsAtEnd = await helper.blogsInDb();
+    const addedBlog = blogsAtEnd.find(
       (blog) => blog.author === "Alexis king"
     );
     expect(addedBlog.likes).toBe(0);
   }, 100000);
 
   test("adding a valid blog is successful", async () => {
+    const blogsAtStart = await helper.blogsInDb();
+
     const validUserForLogin = {
       username: "pendragon",
       password: "secret",
@@ -114,12 +117,10 @@ describe("When making POST requests to endpoint", () => {
       .expect(201)
       .expect("Content-type", /application\/json/);
 
-    const blogsAtEnd = await api.get("/api/blogs");
-    const authors = blogsAtEnd.body.map((blog) => blog.author);
+    const blogsAtEnd = await helper.blogsInDb();
+    const authors = blogsAtEnd.map((blog) => blog.author);
 
-    expect(blogsAtEnd.body).toHaveLength(
-      helper.initialBlogs.length + 1
-    );
+    expect(blogsAtEnd).toHaveLength(blogsAtStart.length + 1);
     expect(authors).toContain("Alexis king");
   }, 100000);
 
