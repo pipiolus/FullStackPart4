@@ -35,7 +35,39 @@ describe("When making GET requests to endpoint", () => {
 });
 
 describe("When making POST requests to endpoint", () => {
+  test.only("if no token is provided will result in 'status 401 Unauthorized'", async () => {
+    const blogsAtStart = await api.get("/api/blogs");
+
+    const newBlog = {
+      title: "Understanding the npm dependency model",
+      author: "Alexis king",
+      url: "https://lexi-lambda.github.io/blog/2016/08/24/understanding-the-npm-dependency-model/",
+    };
+
+    const response = await api
+      .post("/api/blogs")
+      .send(newBlog)
+      .expect(401);
+
+    expect(response.body).toContain("Unauthorized");
+
+    const blogsAtEnd = await api.get("/api/blogs");
+
+    expect(blogsAtEnd).toEqual(blogsAtStart);
+  }, 100000);
+
   test("if 'likes' property is missing, it will default to zero", async () => {
+    const validUserForLogin = {
+      username: "pendragon",
+      password: "secret",
+    };
+
+    const response = await api
+      .post("/api/login")
+      .send(validUserForLogin);
+
+    const token = response.body.token;
+
     const newBlog = {
       title: "Understanding the npm dependency model",
       author: "Alexis king",
@@ -45,6 +77,7 @@ describe("When making POST requests to endpoint", () => {
     await api
       .post("/api/blogs")
       .send(newBlog)
+      .auth(token, { type: "bearer" })
       .expect(201)
       .expect("Content-type", /application\/json/);
 
@@ -53,9 +86,20 @@ describe("When making POST requests to endpoint", () => {
       (blog) => blog.author === "Alexis king"
     );
     expect(addedBlog.likes).toBe(0);
-  });
+  }, 100000);
 
   test("adding a valid blog is successful", async () => {
+    const validUserForLogin = {
+      username: "pendragon",
+      password: "secret",
+    };
+
+    const response = await api
+      .post("/api/login")
+      .send(validUserForLogin);
+
+    const token = response.body.token;
+
     const newBlog = {
       title: "Understanding the npm dependency model",
       author: "Alexis king",
@@ -66,11 +110,13 @@ describe("When making POST requests to endpoint", () => {
     await api
       .post("/api/blogs")
       .send(newBlog)
+      .auth(token, { type: "bearer" })
       .expect(201)
       .expect("Content-type", /application\/json/);
 
     const blogsAtEnd = await api.get("/api/blogs");
     const authors = blogsAtEnd.body.map((blog) => blog.author);
+
     expect(blogsAtEnd.body).toHaveLength(
       helper.initialBlogs.length + 1
     );
@@ -78,10 +124,25 @@ describe("When making POST requests to endpoint", () => {
   }, 100000);
 
   test("with invalid data results in statuscode 400 'bad request'", async () => {
+    const validUserForLogin = {
+      username: "pendragon",
+      password: "secret",
+    };
+
+    const response = await api
+      .post("/api/login")
+      .send(validUserForLogin);
+
+    const token = response.body.token;
+
     const newBlog = {
       author: "Alexis king",
     };
-    await api.post("/api/blogs").send(newBlog).expect(400);
+    await api
+      .post("/api/blogs")
+      .send(newBlog)
+      .auth(token, { type: "bearer" })
+      .expect(400);
   }, 100000);
 });
 

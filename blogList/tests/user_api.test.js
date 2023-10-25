@@ -4,14 +4,19 @@ const supertest = require("supertest");
 const app = require("../app");
 const api = supertest(app);
 const User = require("../models/user");
+const bcrypt = require("bcrypt");
 
 beforeEach(async () => {
   await User.deleteMany({});
-  await User.insertMany(helper.initialUsers);
+  const passwordHash = await bcrypt.hash("secret", 10);
+  const user = new User({ username: "pendragon", passwordHash });
+
+  await user.save();
 }, 100000);
 
 describe("When creating a new user", () => {
   test("A valid user can be added", async () => {
+    const usersAtStart = await helper.usersInDb();
     const newUser = {
       username: "Testing",
       name: "AnyName",
@@ -26,10 +31,12 @@ describe("When creating a new user", () => {
 
     const usersAtEnd = await helper.usersInDb();
 
-    expect(usersAtEnd).toHaveLength(helper.initialUsers.length + 1);
+    expect(usersAtEnd).toHaveLength(usersAtStart.length + 1);
   }, 100000);
 
   test("Invalid username results in proper status and message", async () => {
+    const usersAtStart = await helper.usersInDb();
+
     const newInvalidUser = {
       username: "U",
       name: "BadNameTooShort",
@@ -46,10 +53,11 @@ describe("When creating a new user", () => {
     );
 
     const usersAtEnd = await helper.usersInDb();
-    expect(usersAtEnd).toHaveLength(helper.initialUsers.length);
+    expect(usersAtEnd).toHaveLength(usersAtStart.length);
   }, 100000);
 
   test("Invalid password results in proper status and message", async () => {
+    const usersAtStart = await helper.usersInDb();
     const newInvalidUser = {
       username: "ThisIsFine",
       name: "PasswordTooShort",
@@ -66,14 +74,14 @@ describe("When creating a new user", () => {
     );
 
     const usersAtEnd = await helper.usersInDb();
-    expect(usersAtEnd).toHaveLength(helper.initialUsers.length);
+    expect(usersAtEnd).toHaveLength(usersAtStart.length);
   }, 100000);
 
   test("Username already taken results in error and creation fails", async () => {
     const usersAtStart = await helper.usersInDb();
 
     const newUser = {
-      username: "Pipiolus",
+      username: "pendragon",
       name: "Giova",
       password: "admin123",
     };
