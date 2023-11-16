@@ -6,7 +6,7 @@ It is build with Node/Express and MongoDB as the database.
 1. Fork the repo, install all dependecies and create a new cluster in MongoDB Atlas. 
 2. You will have to populate the .env file with four env variables:
 ###### MONGO_URI  = yourclusterURI (EXAMPLE: mongodb+srv://yourusername:ToJjVxIiBcxS9Fg7@cluste0.xgnsz3c.mongodb.net/blogList?retryWrites=true&w=majority)
-###### TEST_MONGO_URI = yourcluster(EXAMPLE: mongodb+srv://giovanipaolonii:ToJjVxIiBcxS9Fg7@cluste0.xgnsz3c.mongodb.net/testBlogList?retryWrites=true&w=majority)
+###### TEST_MONGO_URI = yourcluster(EXAMPLE: mongodb+srv://yourusername:ToJjVxIiBcxS9Fg7@cluste0.xgnsz3c.mongodb.net/testBlogList?retryWrites=true&w=majority)
 ###### PORT = 3003 (the app listen that port by default)
 ###### SECRET = anystring (This is for JasonWebToken so you can use any string that u want.)
                                                                   
