@@ -1,6 +1,6 @@
 # blogList-backend
 This is the backend of a fullstack application that let's you login (if you created a user) and save blogs that may interest you. 
-It is build with Node/Express and MongoDB as the database.
+It is a RESTful API build with Node/Express and MongoDB as the database for the documents and users saved by the App.
 
 ## TO MAKE IT WORK: 
 1. Fork the repo, install all dependecies and create a new cluster in MongoDB Atlas. 
