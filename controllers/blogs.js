@@ -43,6 +43,32 @@ blogRouter.post("/", userExtractor, async (request, response) => {
   response.status(201).json(savedBlog);
 });
 
+blogRouter.post("/:id/comments", async (request, response) => {
+  const body = request.body;
+
+  try {
+    const blogId = request.params.id;
+    const blog = await Blog.findById(blogId);
+
+    if (!blog) {
+      response.status(404).json({ error: "Blog not found" });
+    }
+
+    if (!blog.comments) {
+      blog.comments = [];
+    }
+
+    const { text } = body;
+    blog.comments.push({ text });
+
+    const updatedBlog = await blog.save();
+    response.status(201).json(updatedBlog);
+  } catch (error) {
+    console.log(error);
+    response.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 blogRouter.put("/:id", async (request, response) => {
   const body = request.body;
 

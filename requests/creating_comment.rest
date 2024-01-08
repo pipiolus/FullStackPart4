@@ -1,0 +1,6 @@
+POST http://localhost:3003/api/blogs/65984b20c51f0b9085643f14/comments HTTP/1.1
+Content-Type: application/json
+
+{
+  "text": "Shushu te amo"
+}
